@@ -95,9 +95,18 @@ app.post('/login', async (req, res) => {
   }
 });
 
-// Start the server
+// Route to get all users
+app.get('/users', async (req, res) => {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching users', error });
+  }
+});
+
+// Start the server on a different port if needed
 const PORT = process.env.PORT || 5001; // Change 5000 to another available port if needed
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-

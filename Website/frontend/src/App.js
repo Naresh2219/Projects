@@ -9,6 +9,7 @@ import CommunityHighlights from './components/CommunityHighlights';
 import Footer from './components/Footer';
 import Signup from './components/Signup';
 import Login from './components/Login';
+import UsersList from './components/UsersList';
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
         <main>
           <Routes>
             <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Login />}/>
+            <Route path="/login" element={<Login />} />
+            <Route path="/users" element={<UsersList />} />
             <Route path="/" element={
               <>
                 <Hero />

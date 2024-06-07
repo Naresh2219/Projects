@@ -1,113 +1,123 @@
 body {
-    font-family: Arial, 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    margin: 0;
-    padding: 0;
-  }
-  
-  header {
-    background: #333;
-    color: white;
-    padding: 10px 20px;
-    cursor: auto;
-    column-rule-style: solid;
-  }
-  
-  header nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .logo {
-    font-size: 1.5em;
-  }
-  
-  .nav-links {
-    list-style: none;
-    display: flex;
-  }
-  
-  .nav-links li {
-    margin: 0 10px;
-  }
-  
-  .nav-links a {
-    color: white;
-    text-decoration: none;
-  }
-  
-  .search-bar input {
-    padding: 5px;
-  }
-  
-  .user-menu a {
-    margin: 0 10px;
-    color: white;
-    text-decoration: none;
-  }
-  
-  .hero {
-    text-align: center;
-    padding: 50px 20px;
-    background: #f4f4f4;
-  }
-  
-  .latest-articles, .featured-products, .upcoming-events, .community-highlights {
-    padding: 20px;
-  }
-  
-  .articles-container, .products-container, .events-container, .community-container {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-  }
-  
-  article, .product, .event, .community-post {
-    width: 30%;
-    background: white;
-    margin: 10px;
-    padding: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  }
-  
-  article img, .product img {
-    width: 100%;
-    height: auto;
-  }
-  
-  footer {
-    background: #333;
-    color: white;
-    text-align: center;
-    padding: 20px 0;
-  }
-  
-  .footer-links {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .footer-links li {
-    display: inline;
-    margin: 0 10px;
-  }
-  
-  .footer-links a {
-    color: white;
-    text-decoration: none;
-  }
-  
-  .social-media a {
-    margin: 0 10px;
-    color: white;
-    text-decoration: none;
-  }
-  /* styles.css */
-/* Login and signip */
+  font-family: Arial, 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 150vh;
+}
+
+main {
+  flex: 1; /* This will push the footer to the bottom */
+}
+
+header {
+  background: #333;
+  color: white;
+  padding: 10px 20px;
+  cursor: auto;
+  column-rule-style: solid;
+}
+
+header nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5em;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+}
+
+.nav-links li {
+  margin: 0 10px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+}
+
+.search-bar input {
+  padding: 5px;
+}
+
+.user-menu a {
+  margin: 0 10px;
+  color: white;
+  text-decoration: none;
+}
+
+.hero {
+  text-align: center;
+  padding: 50px 20px;
+  background: #f4f4f4;
+}
+
+.latest-articles, .featured-products, .upcoming-events, .community-highlights {
+  padding: 20px;
+}
+
+.articles-container, .products-container, .events-container, .community-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+article, .product, .event, .community-post {
+  width: 30%;
+  background: white;
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+article img, .product img {
+  width: 100%;
+  height: auto;
+}
+
+footer {
+  background: #333;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-links {
+  list-style: lower-greek;
+  padding: 0;
+}
+
+.footer-links li {
+  display: inline-flex;
+  margin: 0 10px;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+}
+
+.social-media a {
+  margin: 0 10px;
+  color: white;
+  text-decoration: none;
+}
+
+/* Login and Signup */
 
 /* General form styling */
 form {
-  max-width: 400px;
+  max-width: 330px;
   margin: 0 auto;
   padding: 2rem;
   border: 1px solid #ddd;
@@ -126,7 +136,7 @@ form label {
 }
 
 form input {
-  width: 100%;
+  width: 100%; /* Make input fields take full width */
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -138,7 +148,7 @@ form button {
   padding: 0.75rem;
   border: none;
   border-radius: 4px;
-  background-color: #28a745;
+  background-color: #e2e8e4;
   color: white;
   font-size: 1rem;
   cursor: pointer;
@@ -146,7 +156,7 @@ form button {
 }
 
 form button:hover {
-  background-color: #218838;
+  background-color: #0dd635;
 }
 
 /* Header styling */
