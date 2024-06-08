@@ -1,55 +1,41 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+const Login = ({ onLogin }) => {
+  const [formData, setFormData] = useState({ username: '', password: '' });
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const response = await axios.post('http://localhost:5000/login', {
-        username,
-        password,
-      });
-
-      if (response.status === 200) {
-        // Redirect to home page on successful login
-        navigate('/');
-      }
+      await axios.post('http://localhost:5000/login', formData);
+      onLogin();
+      navigate('/');
     } catch (error) {
-      setError('Invalid username or password');
+      setError(error.response.data.message);
     }
   };
 
   return (
     <div>
-      <h2>Login</h2>
+      <h2>Log In</h2>
+      {error && <p>{error}</p>}
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Username:</label>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
+          <label>Username</label>
+          <input type="text" name="username" value={formData.username} onChange={handleChange} required />
         </div>
         <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <label>Password</label>
+          <input type="password" name="password" value={formData.password} onChange={handleChange} required />
         </div>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        <button type="submit">Login</button>
+        <button type="submit">Log In</button>
       </form>
     </div>
   );

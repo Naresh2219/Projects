@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-function Signup() {
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: ''
-  });
+const Signup = ({ onLogin }) => {
+  const [formData, setFormData] = useState({ username: '', email: '', password: '' });
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -14,42 +13,36 @@ function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const response = await axios.post('http://localhost:5000/signup', formData);
-      console.log('Signup successful:', response.data);
+      await axios.post('http://localhost:5000/signup', formData);
+      onLogin();
+      navigate('/');
     } catch (error) {
-      console.error('Error signing up:', error.response.data);
+      setError(error.response.data.message);
     }
-
-    // Reset form fields after submission
-    setFormData({
-      username: '',
-      email: '',
-      password: ''
-    });
   };
 
   return (
-    <section className="Signup">
-      <h2>Signup</h2>
+    <div>
+      <h2>Sign Up</h2>
+      {error && <p>{error}</p>}
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="username">Username:</label>
-          <input type="text" id="username" name="username" value={formData.username} onChange={handleChange} required />
+          <label>Username</label>
+          <input type="text" name="username" value={formData.username} onChange={handleChange} required />
         </div>
         <div>
-          <label htmlFor="email">Email:</label>
-          <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
+          <label>Email</label>
+          <input type="email" name="email" value={formData.email} onChange={handleChange} required />
         </div>
         <div>
-          <label htmlFor="password">Password:</label>
-          <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} required />
+          <label>Password</label>
+          <input type="password" name="password" value={formData.password} onChange={handleChange} required />
         </div>
-        <button type="submit">Signup</button>
+        <button type="submit">Sign Up</button>
       </form>
-    </section>
+    </div>
   );
-}
+};
 
 export default Signup;

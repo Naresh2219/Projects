@@ -1,3 +1,5 @@
+// server.js
+
 const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
@@ -19,7 +21,7 @@ mongoose.connect(mongoURI)
   .then(() => {
     console.log(`MongoDB connected at ${mongoURI}`);
     // Start the server after successful MongoDB connection
-    const PORT = process.env.PORT || 5000;
+    const PORT = process.env.PORT || 5001;
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
     });
@@ -105,8 +107,47 @@ app.get('/users', async (req, res) => {
   }
 });
 
+
+// Route to update a user by ID
+app.put('/users/:id', async (req, res) => {
+  const userId = req.params.id;
+  const { username, email, password } = req.body;
+
+  try {
+    // Find user by ID and update
+    const updatedUser = await User.findByIdAndUpdate(userId, { username, email, password }, { new: true });
+
+    // Check if user was found and updated
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Send success response
+    res.status(200).json({ message: 'User updated successfully', user: updatedUser });
+  } catch (error) {
+    // Handle errors
+    console.error('Error updating user:', error);
+    res.status(500).json({ message: 'Error updating user', error });
+  }
+});
+
+// Route to delete a user
+app.delete('/users/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const deletedUser = await User.findByIdAndDelete(id);
+    if (!deletedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(200).json({ message: 'User deleted successfully', deletedUser });
+  } catch (error) {
+    res.status(500).json({ message: 'Error deleting user', error });
+  }
+});
+
 // Start the server on a different port if needed
-const PORT = process.env.PORT || 5001; // Change 5000 to another available port if needed
+const PORT = process.env.PORT || 5000; // Change 5000 to another available port if needed
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
