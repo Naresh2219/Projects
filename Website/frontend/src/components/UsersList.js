@@ -1,4 +1,6 @@
+// src/components/UsersList.js
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './UsersList.css';
 
@@ -6,6 +8,7 @@ const UsersList = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -29,6 +32,10 @@ const UsersList = () => {
     } catch (error) {
       console.error('Error deleting user:', error.message);
     }
+  };
+
+  const handleEdit = (userId) => {
+    navigate(`/edit-user/${userId}`);
   };
 
   if (loading) return <p>Loading users...</p>;

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+// src/App.js
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -11,40 +12,33 @@ import Signup from './components/Signup';
 import Login from './components/Login';
 import UsersList from './components/UsersList';
 import Welcome from './components/Welcome';
+import EditUser from './components/EditUser';
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  const handleLogin = () => {
-    setIsAuthenticated(true);
-  };
-
   return (
     <Router>
       <div className="App">
         <Header />
         <main>
           <Routes>
-            <Route path="/signup" element={<Signup onLogin={handleLogin} />} />
-            <Route path="/login" element={<Login onLogin={handleLogin} />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/users" element={<UsersList />} />
             <Route path="/welcome" element={<Welcome />} />
+            <Route path="/edit-user/:userId" element={<EditUser />} />
             <Route
-              path="/"
+              path="/home"
               element={
-                isAuthenticated ? (
-                  <>
-                    <Hero />
-                    <LatestArticles />
-                    <FeaturedProducts />
-                    <UpcomingEvents />
-                    <CommunityHighlights />
-                  </>
-                ) : (
-                  <Navigate to="/welcome" />
-                )
+                <>
+                  <Hero />
+                  <LatestArticles />
+                  <FeaturedProducts />
+                  <UpcomingEvents />
+                  <CommunityHighlights />
+                </>
               }
             />
+            <Route path="/" element={<Navigate to="/welcome" />} />
           </Routes>
         </main>
         <Footer />

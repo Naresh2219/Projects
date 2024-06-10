@@ -1,12 +1,14 @@
 // src/components/EditUser.js
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useParams, useNavigate } from 'react-router-dom';
 
-const EditUser = ({ userId }) => {
+const EditUser = () => {
+  const { userId } = useParams();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -15,6 +17,7 @@ const EditUser = ({ userId }) => {
         const userData = response.data;
         setUsername(userData.username);
         setEmail(userData.email);
+        setPassword(user.password);
       } catch (error) {
         console.error('Error fetching user:', error);
       }
@@ -29,6 +32,7 @@ const EditUser = ({ userId }) => {
     try {
       await axios.put(`http://localhost:5000/users/${userId}`, { username, email, password });
       alert('User updated successfully');
+      navigate('/users');
     } catch (error) {
       console.error('Error updating user:', error);
       alert('Error updating user');
